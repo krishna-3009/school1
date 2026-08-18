@@ -1,0 +1,231 @@
+:root {
+  --navy-900: #131b3a;
+  --navy-800: #1b2a57;
+  --navy-100: #e8ebf7;
+  --marigold-600: #e0900f;
+  --marigold-500: #f5a524;
+  --marigold-300: #ffce85;
+  --cream-50: #fdfaf4;
+  --cream-100: #f6efe1;
+  --ink-900: #1f2430;
+  --muted-500: #666f80;
+  --white: #ffffff;
+  --gradient-hero: linear-gradient(135deg, #131b3a 0%, #1b2a57 55%, #2c3e75 100%);
+  --gradient-marigold: linear-gradient(135deg, #f7b545, #e0900f);
+  --shadow-soft: 0 10px 30px rgba(19, 27, 58, 0.08);
+  --shadow-lift: 0 18px 40px rgba(19, 27, 58, 0.14);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream-50);
+  font-family: "Poppins", Arial, sans-serif;
+  color: var(--ink-900);
+  line-height: 1.7;
+}
+
+h1, h2 {
+  font-family: "Inknut Antiqua", serif;
+  color: var(--navy-900);
+}
+
+/* HEADER (shared) */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(253, 250, 244, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(19, 27, 58, 0.08);
+}
+
+.logo_containor {
+  margin-top: 9px;
+  margin-left: 6%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo img {
+  width: 62px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--marigold-500);
+  padding: 2px;
+  background: var(--white);
+}
+
+.logo_des h1 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.logo_des p {
+  font-size: 12px;
+  color: var(--muted-500);
+  font-family: "Poppins", sans-serif;
+  margin-top: 2px;
+}
+
+.navbars {
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 6%;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  font-weight: 500;
+  padding-left: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--navy-800);
+  font-weight: 500;
+  font-size: 15px;
+  position: relative;
+}
+
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: var(--marigold-500);
+  left: 0;
+  bottom: -6px;
+  transition: 0.3s;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+.contact-btn {
+  background: var(--gradient-marigold);
+  color: var(--navy-900);
+  border: none;
+  padding: 11px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(224, 144, 15, 0.28);
+  transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(224, 144, 15, 0.38);
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.tag {
+  color: var(--marigold-600);
+  border: 2px solid var(--marigold-600);
+  display: inline-block;
+  padding: 6px 15px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.desc {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+/* ABOUT PAGE HERO BANNER */
+.about-section {
+  text-align: center;
+  padding-bottom: 90px;
+}
+
+.about-section > h1 {
+  background: var(--gradient-hero);
+  color: var(--white);
+  font-size: 40px;
+  padding: 70px 8% 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-image {
+  padding: 0 8%;
+  margin-top: -40px;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 900px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 6px solid var(--white);
+  box-shadow: var(--shadow-lift);
+  margin-bottom: 0;
+}
+
+.paragraph {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.paragraph p {
+  font-size: 16.5px;
+  max-width: 800px;
+  line-height: 1.9;
+  color: var(--ink-900);
+  text-align: left;
+  background: var(--white);
+  padding: 40px 46px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  border-left: 4px solid var(--marigold-500);
+}
+
+@media (max-width: 900px) {
+  .about-section > h1 {
+    font-size: 30px;
+    padding: 50px 6% 45px;
+  }
+
+  .about-image img {
+    height: 260px;
+  }
+
+  .paragraph p {
+    padding: 26px 24px;
+    font-size: 15px;
+  }
+}
