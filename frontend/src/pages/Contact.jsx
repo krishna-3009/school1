@@ -61,9 +61,7 @@ export default function Contact() {
             <div>
               <small>COME FIND US</small>
               <p>
-                Vidhyasagar, Koron
-                <br />
-                Deoghar, Jharkhand, India
+                See our exact location on Google Maps.
               </p>
             </div>
           </div>
@@ -84,11 +82,11 @@ export default function Contact() {
           <div className="map-placeholder">
             <span>✳</span>
             <b>Shanti Niketan Public School</b>
-            <small>Vidhyasagar · Koron</small>
+            <small>Exact location on Google Maps</small>
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://maps.google.com/?q=Siriyan,Jharkhand,India"
+              href="https://maps.app.goo.gl/3tdJx2JiYfAdnDWf7"
             >
               Open map <ArrowUpRight size={14} />
             </a>
