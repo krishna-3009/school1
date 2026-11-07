@@ -20,6 +20,11 @@ const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
 const port = Number(isProduction ? process.env.PORT || 5173 : process.env.API_PORT || 3001);
 
+// Render runs Express behind one trusted proxy. This lets req.ip (used by the
+// lookup limiter) identify the visitor instead of grouping every visitor as
+// the proxy's address. Keep proxy headers untrusted during local development.
+app.set('trust proxy', isProduction ? 1 : false);
+
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
   throw new Error('PORT/API_PORT must be a valid TCP port.');
 }

@@ -24,7 +24,14 @@ export async function lookupResult(req, res) {
   }
 
   try {
-    const record = await Result.findOne({ rollNumber, dateOfBirth, published: true })
+    // Atlas records may have been inserted manually and can predate the schema's
+    // uppercase setter, so compare the validated roll number case-insensitively.
+    const escapedRollNumber = rollNumber.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const record = await Result.findOne({
+      rollNumber: { $regex: `^${escapedRollNumber}$`, $options: 'i' },
+      dateOfBirth,
+      published: true,
+    })
       .sort({ academicYear: -1, createdAt: -1 })
       .select('studentName className academicYear examName subjects remarks pdfFilename')
       .lean();
