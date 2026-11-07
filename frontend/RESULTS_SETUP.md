@@ -4,7 +4,7 @@ The results page is available from the main navigation and at `/?page=results` (
 
 ## Add results from the admin page
 
-The admin entry page is available at **`/admin/upload-result`** from the main-site navigation. Saving requires the server-only `ADMIN_UPLOAD_TOKEN`; entering the token in the form does not store it in the browser. Set this variable in `backend/.env` for local development and in the Render environment settings for deployment. Use a unique random value of at least 32 characters. For example, generate one locally with:
+The admin entry page is available at **`/admin/upload-result`** from the main-site navigation. Saving requires the server-only `ADMIN_UPLOAD_PASSWORD`; entering the password in the form does not store it in the browser. Set this variable in `backend/.env` for local development and in the Render environment settings for deployment. Use a unique, hard-to-guess password of at least 8 characters and do not reuse a personal password. For example, generate a random password locally with:
 
 ```sh
 node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
@@ -12,7 +12,7 @@ node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
 
 The form supports one student result at a time, with one or more subjects, optional remarks, and a publish checkbox. Only published records appear in student lookup. An optional PDF can be attached to the result; PDFs are stored in MongoDB with the result document and are limited to 8 MB. Students can download the PDF only after looking up the published result with its roll number and date of birth.
 
-If the admin token is not configured on the server, the upload endpoints stay disabled and return an error. Never put the token in frontend source, commit it, or share it publicly.
+If the admin password is not configured on the server, the upload endpoints stay disabled and return an error. Never put the password in frontend source or commit it. Share it only with people authorized to upload results.
 
 ## Add a result directly in Atlas
 
@@ -44,7 +44,7 @@ Each real result document needs these exact field names: `rollNumber`, `dateOfBi
 
 ## Run locally
 
-1. Put `MONGODB_URI`, optional `MONGODB_DATABASE`, and `ADMIN_UPLOAD_TOKEN` in `backend/.env`. The URI is read by the server only. Keep this file private and uncommitted.
+1. Put `MONGODB_URI`, optional `MONGODB_DATABASE`, and `ADMIN_UPLOAD_PASSWORD` in `backend/.env`. The URI and password are read by the server only. Keep this file private and uncommitted.
 2. Allow the machine's IP address in Atlas Network Access and ensure the database user can read and write the target database.
 3. In one terminal run `cd backend && npm install && npm run dev`.
 4. In a second terminal run `cd frontend && npm install && npm run dev`.
@@ -52,4 +52,4 @@ Each real result document needs these exact field names: `rollNumber`, `dateOfBi
 
 The frontend uses the Vite `/api` proxy locally. If deploying the frontend and API on separate origins, set `VITE_API_BASE_URL` to the backend origin when building the frontend, and set `FRONTEND_ORIGIN` on the backend to the exact frontend origin. Multiple allowed origins can be comma-separated. When Express serves `frontend/dist` from the same Render service, leave `VITE_API_BASE_URL` unset; same-origin API requests work directly.
 
-For Render, set `NODE_ENV=production`, `MONGODB_URI`, `MONGODB_DATABASE` if needed, and `ADMIN_UPLOAD_TOKEN` in the service environment settings. Build the frontend and start the backend as described in the project deployment instructions. Never commit `.env` or put Atlas credentials or the admin token in frontend code.
+For Render, set `NODE_ENV=production`, `MONGODB_URI`, `MONGODB_DATABASE` if needed, and `ADMIN_UPLOAD_PASSWORD` in the service environment settings. Build the frontend and start the backend as described in the project deployment instructions. Never commit `.env` or put Atlas credentials or the admin password in frontend code.

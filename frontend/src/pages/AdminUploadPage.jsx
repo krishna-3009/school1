@@ -11,12 +11,13 @@ const initialForm = () => ({
   academicYear: '',
   examName: '',
   remarks: '',
-  published: false,
+  published: true,
   subjects: [emptySubject()],
 });
 
 export default function AdminUploadPage() {
-  const [token, setToken] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordEditable, setPasswordEditable] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [pdfFile, setPdfFile] = useState(null);
   const [createdResult, setCreatedResult] = useState(null);
@@ -66,7 +67,7 @@ export default function AdminUploadPage() {
       const response = await apiFetch(`/api/admin/results/${resultId}/pdf`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          'X-Admin-Password': password,
           'Content-Type': 'application/pdf',
         },
         body: file,
@@ -91,7 +92,7 @@ export default function AdminUploadPage() {
       const response = await apiFetch('/api/admin/results', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          'X-Admin-Password': password,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -150,17 +151,20 @@ export default function AdminUploadPage() {
           <span><FileText size={18} /></span>
           <div>
             <h2>Result details</h2>
-            <p>Admin access token is checked by the server and is not saved in the browser.</p>
+            <p>The upload password is checked by the server and is not saved in the browser.</p>
           </div>
         </div>
 
-        <label htmlFor="adminToken">Admin upload token</label>
+        <label htmlFor="adminPassword">Admin upload password</label>
         <input
-          id="adminToken"
+          id="adminPassword"
+          name="admin-upload-secret"
           type="password"
-          value={token}
-          onChange={(event) => setToken(event.target.value)}
-          autoComplete="current-password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          onFocus={() => setPasswordEditable(true)}
+          readOnly={!passwordEditable}
+          autoComplete="new-password"
           required
         />
 
@@ -232,7 +236,7 @@ export default function AdminUploadPage() {
         </label>
 
         {!createdResult ? (
-          <button className="button dark" type="submit" disabled={loading || !token}>
+          <button className="button dark" type="submit" disabled={loading || !password}>
             {loading ? 'Saving…' : 'Save result'} {!loading && <ArrowRight size={17} />}
           </button>
         ) : (

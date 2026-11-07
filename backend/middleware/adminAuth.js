@@ -5,17 +5,14 @@ const windowMs = 15 * 60 * 1000;
 const attemptLimit = 10;
 
 export default function adminAuth(req, res, next) {
-  const configuredToken = process.env.ADMIN_UPLOAD_TOKEN;
-  if (!configuredToken || configuredToken.length < 32) {
+  const configuredPassword = process.env.ADMIN_UPLOAD_PASSWORD;
+  if (!configuredPassword || configuredPassword.length < 8) {
     return res.status(503).json({ error: 'Admin upload is not configured on the server.' });
   }
 
-  const authorization = req.get('authorization') || '';
-  const providedToken = authorization.startsWith('Bearer ')
-    ? authorization.slice('Bearer '.length)
-    : '';
-  const expectedHash = createHash('sha256').update(configuredToken).digest();
-  const providedHash = createHash('sha256').update(providedToken).digest();
+  const providedPassword = req.get('x-admin-password') || '';
+  const expectedHash = createHash('sha256').update(configuredPassword).digest();
+  const providedHash = createHash('sha256').update(providedPassword).digest();
 
   const now = Date.now();
   const key = req.ip || req.socket.remoteAddress || 'unknown';
@@ -34,7 +31,7 @@ export default function adminAuth(req, res, next) {
         if (now - attempt.startedAt >= windowMs) failedAttempts.delete(ip);
       }
     }
-    return res.status(401).json({ error: 'Admin token is invalid.' });
+    return res.status(401).json({ error: 'Admin password is incorrect.' });
   }
 
   failedAttempts.delete(key);

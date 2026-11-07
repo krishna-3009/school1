@@ -49,7 +49,7 @@ app.use('/api', (req, res, next) => {
   const origin = req.get('origin');
   if (origin && allowedFrontendOrigins.has(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Admin-Password, Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.vary('Origin');
     if (req.method === 'OPTIONS') return res.sendStatus(204);
