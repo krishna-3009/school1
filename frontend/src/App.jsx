@@ -6,6 +6,7 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Gallery from './pages/Gallery.jsx';
 import Home from './pages/Home.jsx';
+import Hostel from './pages/Hostel.jsx';
 import ResultsPage from './pages/ResultsPage.jsx';
 import AdminUploadPage from './pages/AdminUploadPage.jsx';
 
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="/contact.html" element={<Navigate to="/contact" replace />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/results.html" element={<Navigate to="/results" replace />} />
+        <Route path="/hostel" element={<Hostel />} />
         <Route path="/admin/upload-result" element={<AdminUploadPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

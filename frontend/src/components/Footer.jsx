@@ -22,6 +22,7 @@ export default function Footer() {
           <Link to="/#programs">Learning</Link>
           <Link to="/#faculty">Faculty</Link>
           <Link to="/results">Student results</Link>
+          <Link to="/hostel">Hostel & boarding</Link>
           <Link to="/#admissions">Admissions</Link>
           <Link to="/#faq">Family FAQs</Link>
         </div>

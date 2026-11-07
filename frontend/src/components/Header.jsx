@@ -28,26 +28,14 @@ export default function Header() {
         {open ? <X /> : <Menu />}
       </button>
       <nav className={open ? 'open' : ''}>
-        <Link to="/" onClick={() => setOpen(false)}>
-          Home
-        </Link>
-        <Link to="/#about" onClick={() => setOpen(false)}>
-          Our school
-        </Link>
         <Link to="/gallery" onClick={() => setOpen(false)}>
           Gallery
-        </Link>
-        <Link to="/#programs" onClick={() => setOpen(false)}>
-          Learning
-        </Link>
-        <Link to="/#faculty" onClick={() => setOpen(false)}>
-          Faculty
         </Link>
         <Link to="/results" onClick={() => setOpen(false)}>
           Results
         </Link>
-        <Link to="/#admissions" onClick={() => setOpen(false)}>
-          Admissions
+        <Link to="/hostel" onClick={() => setOpen(false)}>
+          Hostel
         </Link>
         <Link to="/contact" className="nav-cta" onClick={() => setOpen(false)}>
           Get in touch <ArrowUpRight size={16} />
