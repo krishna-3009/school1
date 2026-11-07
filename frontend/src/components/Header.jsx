@@ -34,6 +34,9 @@ export default function Header() {
         <Link to="/results" onClick={() => setOpen(false)}>
           Results
         </Link>
+        <Link to="/admin/upload-result" onClick={() => setOpen(false)}>
+          Upload result
+        </Link>
         <Link to="/hostel" onClick={() => setOpen(false)}>
           Hostel
         </Link>
