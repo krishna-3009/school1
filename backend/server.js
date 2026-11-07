@@ -39,14 +39,20 @@ app.use((_req, res, next) => {
   next();
 });
 
-const allowedFrontendOrigins = new Set(
-  (process.env.FRONTEND_ORIGIN || '')
-    .split(',')
-    .map((origin) => origin.trim())
-    .filter(Boolean)
-);
+function normalizeOrigin(value) {
+  try {
+    return new URL(value).origin;
+  } catch {
+    return '';
+  }
+}
+
+const allowedFrontendOrigins = new Set([
+  'https://school1-anos.vercel.app',
+  ...(process.env.FRONTEND_ORIGIN || '').split(',').map(normalizeOrigin),
+].filter(Boolean));
 app.use('/api', (req, res, next) => {
-  const origin = req.get('origin');
+  const origin = normalizeOrigin(req.get('origin') || '');
   if (origin && allowedFrontendOrigins.has(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Access-Control-Allow-Headers', 'X-Admin-Password, Content-Type');
